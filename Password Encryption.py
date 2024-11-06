@@ -32,8 +32,8 @@ def EncryptText(All_Characters, Encryption_Key):
 
 # Decrypt Username and Password
 def DecryptText(All_Characters, Encryption_Key):
-    Input_Username_Encrypted = input("Encyrpted Username: ")
-    Input_Password_Encrypted = input("Encyrpted Password: ")
+    Input_Username_Encrypted = input("Encrypted Username: ")
+    Input_Password_Encrypted = input("Encrypted Password: ")
 
     Username_Decrypted = ""
     Password_Decrypted = ""
