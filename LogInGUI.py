@@ -25,7 +25,7 @@ def login_page(): # Sets up GUI for login page
     login_button.grid(column = 2, row=0)
 
 
-def button_click(username: str, password: str):
+def button_click(username: str, password: str): # Makes action happed on button press
     if check_login(username, password):
         success_label = Label(root, text = "Username & Password Accepted", fg = "green")
         success_label.grid(column = 1, row = 3)
@@ -34,11 +34,9 @@ def button_click(username: str, password: str):
         failure_label.grid(column = 1, row = 3)
 
 
-def check_login(username: str, password: str):
+def check_login(username: str, password: str): # Checks if login info is accurate
     encrypted_login_info = load_login_info()
     decrypted_login_info = decrypt_login_info(encrypted_login_info)
-    print(encrypted_login_info)
-    print(decrypted_login_info)
 
     for row in decrypted_login_info:
         if username == row[0] and password == row[1]:
@@ -59,14 +57,14 @@ def load_login_info(): # Makes an array for all of the stored usernames and pass
                 username = row[0]
                 password = row[1]
                 type = row[2]
-                encrypted_login_info.append([username, password, type])
+                encrypted_login_info.append([username, password, type]) # Stored as strings in a list
     except FileNotFoundError:
         print("Error: The file was not found.")
     
     return encrypted_login_info
 
 
-def decrypt_login_info(encrypted_login_info: list):
+def decrypt_login_info(encrypted_login_info: list): # Decrypts the login information from the .CSV file
     character_list = make_character_list()
     encryption_key = make_encryption()
 
@@ -82,26 +80,26 @@ def decrypt_login_info(encrypted_login_info: list):
 
         for letter in encrypted_username:
             position = encryption_key.index(letter)
-            decrypted_username.append(character_list[position])
+            decrypted_username.append(character_list[position]) # Stored as a list
         for letter in encrypted_password:
             position = encryption_key.index(letter)
-            decrypted_password.append(character_list[position])
+            decrypted_password.append(character_list[position]) # Stored as a list
 
-        decrytped_username_string = ''.join(decrypted_username)
-        decrytped_password_string = ''.join(decrypted_password)
+        decrytped_username_string = ''.join(decrypted_username) # Turns list into string
+        decrytped_password_string = ''.join(decrypted_password) # Turns list into string
 
-        decrypted_login_info.append([decrytped_username_string, decrytped_password_string, type])
+        decrypted_login_info.append([decrytped_username_string, decrytped_password_string, type]) # Stores all information as a lsit
     
     return decrypted_login_info
     
 
-def make_character_list():
+def make_character_list(): # Makes a list with all characters
     all_characters = " " + string.ascii_letters + string.digits + string.punctuation
     all_characters = list(all_characters)
     return all_characters
     
 
-def make_encryption():
+def make_encryption(): # Manually set up encryption key
     encryption_key = ['&','R','~','N','e','C','B','_','Z','d',':','O','q','u','|','h','!','3','V','X','4','[','w','s','U','"','0','L','J','$','?','k','j','a','z','b','c',')','9','-','r','I','H','y','P','+','D','#','/','E','Q','A','}','o','.','W','1','(','p','5',';','^','T','\\','i',"'",'x','<','6','K','@','{',',','7',' ','F','Y','t','G','v','=','`','*','2',']','f','n','m','S','>','g','%','M','8','1']
     return encryption_key # Terribly hardcoded for now because if randomized every iteration, code wont work
 
